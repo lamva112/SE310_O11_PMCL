@@ -1,0 +1,17 @@
+{
+    "hello_world" : "Hello World",
+    "change_language" : "Change language",
+    "wellcome_to_panda_english":"Welcome to Pandas English",
+    "wellcome_content":"Panda English is not just another language learning platform; it is a comprehensive, dynamic, and personalized solution designed to make your language learning adventure both effective and enjoyable. With its unique approach, Panda English stands out in the crowded field of language learning resources.",
+    "get_started":"Get Started",
+    "sign_in":"Sign In",
+    "sign_up":"Sign Up",
+    "create_account":"Create Account",
+    "or_use_your_email_for_registration":"or use your email for registration:",
+    "sign_in_to_project":"Sign in to project",
+    "or_use_your_email_account":"or use your email account:",
+    "password":"Password",
+    "email":"Email",
+    "confirm_password":"Confirm password"
+    
+}
