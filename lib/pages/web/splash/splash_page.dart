@@ -76,14 +76,15 @@ class _SplashPageState extends BaseState<SplashPage, SplashBloc>
                           child: Visibility(
                             visible: !data,
                             child: SizedBox(
-                                width: 250,
-                                height: 250,
-                                child: LottieBuilder.asset(
-                                  "assets/images/json/launch.json",
-                                  fit: BoxFit.cover,
-                                  width: 100,
-                                  height: 100,
-                                )),
+                              width: 250,
+                              height: 250,
+                              child: LottieBuilder.asset(
+                                "assets/images/json/launch.json",
+                                fit: BoxFit.cover,
+                                width: 100,
+                                height: 100,
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -142,7 +143,8 @@ class _SplashPageState extends BaseState<SplashPage, SplashBloc>
                                           curve: Curves.easeIn,
                                           duration: const Duration(seconds: 4))
                                       .then((value) {
-                                    Navigator.pushNamed(context, Routes.authentication);
+                                    Navigator.pushNamed(
+                                        context, Routes.authentication);
                                   });
                                 },
                                 color: const Color.fromRGBO(255, 255, 255, 1),

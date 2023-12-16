@@ -15,4 +15,5 @@ class AppColors {
   static const Color primaryPampas = Color.fromRGBO(241, 237, 234, 0.8);
   static const Color primaryPippin = Color.fromARGB(255, 230, 226, 223);
   static const Color primaryCocoaBean = Color.fromARGB(255, 230, 226, 223);
+  static const Color primaryBrown = Color(0XFF9F866A);
 }

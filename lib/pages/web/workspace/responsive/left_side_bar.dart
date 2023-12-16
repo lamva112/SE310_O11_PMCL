@@ -36,22 +36,6 @@ class LeftSideBar extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(
-                  height: 40,
-                  // color: Colors.red,
-                  margin: const EdgeInsets.only(
-                    top: 12,
-                    left: 12,
-                    right: 10,
-                    bottom: 10,
-                  ),
-                  child: Row(
-                    children: [
-                      Image.asset("assets/images/png/insta_logo.png"),
-                      Image.asset("assets/images/png/font_logo.png"),
-                    ],
-                  ),
-                ),
                 const SizedBox(height: 20),
                 LottieBuilder.asset(
                   "assets/images/json/avatar.json",
@@ -69,7 +53,7 @@ class LeftSideBar extends StatelessWidget {
                 ),
                 const SizedBox(height: 5),
                 const Text(
-                  "@abhi_navikhare",
+                  "@trungHieu",
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.grey,
@@ -81,7 +65,7 @@ class LeftSideBar extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 25),
                   alignment: Alignment.centerLeft,
                   child: const Text(
-                    "Abhivan Khare",
+                    "Trung Hieu",
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,

@@ -9,5 +9,9 @@ class BlocDependencies {
     injector.registerFactory<LoginBloc>(() => LoginBloc());
     injector.registerFactory<HomeBloc>(() => HomeBloc());
     injector.registerFactory<WorkspaceBloc>(() => WorkspaceBloc());
+    injector.registerFactory<SearchBloc>(() => SearchBloc(injector()));
+    injector.registerFactory<VocabularyBloc>(() => VocabularyBloc(injector()));
+    injector.registerFactory<SearchDetailBloc>(() => SearchDetailBloc(injector()));
+    injector.registerFactory<VocabularyDetailBloc>(() => VocabularyDetailBloc());
   }
 }

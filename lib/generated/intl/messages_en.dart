@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "back": MessageLookupByLibrary.simpleMessage("Go back"),
         "change_language":
             MessageLookupByLibrary.simpleMessage("Change language"),
         "confirm_password":
@@ -37,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "or use your email for registration:"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "search": MessageLookupByLibrary.simpleMessage("Search"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
         "sign_in_to_project":
             MessageLookupByLibrary.simpleMessage("Sign in to project"),
@@ -44,6 +46,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "wellcome_content": MessageLookupByLibrary.simpleMessage(
             "Panda English is not just another language learning platform; it is a comprehensive, dynamic, and personalized solution designed to make your language learning adventure both effective and enjoyable. With its unique approach, Panda English stands out in the crowded field of language learning resources."),
         "wellcome_to_panda_english":
-            MessageLookupByLibrary.simpleMessage("Welcome to Pandas English")
+            MessageLookupByLibrary.simpleMessage("Welcome to Pandas English"),
+        "what_would_you_like_to_search": MessageLookupByLibrary.simpleMessage(
+            "What would you like to search?")
       };
 }

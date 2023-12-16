@@ -1,0 +1,1 @@
+export 'search_detail_page.dart';

@@ -1,0 +1,1 @@
+export 'vocabulary_detail_page.dart';

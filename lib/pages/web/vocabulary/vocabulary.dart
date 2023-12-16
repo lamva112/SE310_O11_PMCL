@@ -1,0 +1,1 @@
+export 'vocabulary_page.dart';

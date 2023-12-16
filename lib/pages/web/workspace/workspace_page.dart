@@ -1,29 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:se310_o11_pmcl/pages/pages.dart';
+import 'package:se310_o11_pmcl/pages/web/vocabulary/vocabulary_page.dart';
 
 import '../../../blocs/blocs.dart';
 import '../../../core/core.dart';
 import '../../../enums.dart';
 import '../../../resources/colors.dart';
 import '../../../widgets/responsive_widget.dart';
+import '../search/widget/audiod.dart';
 import 'responsive/left_side_bar.dart';
 import 'responsive/responsive.dart';
 import 'widget/keep_alive_page.dart';
 
-
 class Workspace extends StatefulWidget {
   final WorkspaceBloc bloc;
-  
+  final SearchBloc searchBloc;
+  final VocabularyBloc vocabularyBloc;
 
-  const Workspace(this.bloc, {Key? key}) : super(key: key);
+  const Workspace(
+      {Key? key,
+      required this.searchBloc,
+      required this.bloc,
+      required this.vocabularyBloc})
+      : super(key: key);
 
   @override
   State<Workspace> createState() => _WorkspaceState();
 }
 
-class _WorkspaceState extends BaseState<Workspace, WorkspaceBloc>  with TickerProviderStateMixin{
-  
-  BehaviorSubject<NavigationType> selectedSideBar = BehaviorSubject<NavigationType>.seeded(NavigationType.home);
+class _WorkspaceState extends BaseState<Workspace, WorkspaceBloc>
+    with TickerProviderStateMixin {
+  BehaviorSubject<NavigationType> selectedSideBar =
+      BehaviorSubject<NavigationType>.seeded(NavigationType.home);
   // BehaviorSubject<bool> showSuffixIcon = BehaviorSubject<bool>.seeded(false);
   // BehaviorSubject<TemplateModel?> selectedTemplate = BehaviorSubject<TemplateModel?>.seeded(null);
   // BehaviorSubject<SuggestCategories?> hoverCategory = BehaviorSubject<SuggestCategories?>.seeded(null);
@@ -31,7 +40,8 @@ class _WorkspaceState extends BaseState<Workspace, WorkspaceBloc>  with TickerPr
   // TextEditingController templateEditingController = TextEditingController();
   // List<Categories> selectedCategories = [];
   List<String> suggestSearch = ['Shopping', 'App', 'Template'];
-  BehaviorSubject<String?> hoverSuggestSearch = BehaviorSubject<String?>.seeded(null);
+  BehaviorSubject<String?> hoverSuggestSearch =
+      BehaviorSubject<String?>.seeded(null);
   bool previousStateListCategory = true;
   BehaviorSubject<bool> showSearchTopBar = BehaviorSubject<bool>.seeded(false);
   BehaviorSubject<bool> changeSmallAppBar = BehaviorSubject<bool>.seeded(false);
@@ -42,13 +52,7 @@ class _WorkspaceState extends BaseState<Workspace, WorkspaceBloc>  with TickerPr
   final keyC = GlobalKey();
   final keySmallScreen = GlobalKey();
 
-
-  
-
-
   //AppColors get appColors => Theme.of(context).extension<AppColors>()!;
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +60,7 @@ class _WorkspaceState extends BaseState<Workspace, WorkspaceBloc>  with TickerPr
     return Stack(
       children: [
         GestureDetector(
-          onTap: () {
-            
-          },
+          onTap: () {},
           child: Scaffold(
             backgroundColor: AppColors.primaryWhite,
             body: ResponsiveWidget(
@@ -125,7 +127,6 @@ class _WorkspaceState extends BaseState<Workspace, WorkspaceBloc>  with TickerPr
         NavigationType type = snapshot.data ?? NavigationType.home;
         return Column(
           children: [
-            
             const SizedBox(height: 1),
             allPageSideBar(type, size),
           ],
@@ -139,25 +140,20 @@ class _WorkspaceState extends BaseState<Workspace, WorkspaceBloc>  with TickerPr
       child: IndexedStack(
         index: NavigationType.values.indexOf(type),
         children: [
+          KeepAlivePage(child: VocabularyPage(bloc: widget.vocabularyBloc)),
+          // KeepAlivePage(
+          //   child:
+          // ),
+          SearchPage(bloc: widget.searchBloc),
           KeepAlivePage(
             child: Container(
-              child: Text("page 1"),
+              child: Text("page 3"),
             ),
           ),
           KeepAlivePage(
             child: Container(
-                child: Text("page 2"),
-              ),
-          ),
-          KeepAlivePage(
-            child: Container(
-                child: Text("page 3"),
-              ),
-          ),
-          KeepAlivePage(
-            child: Container(
-                child: Text("page 4"),
-              ),
+              child: Text("page 4"),
+            ),
           ),
         ],
       ),
@@ -342,17 +338,14 @@ class _WorkspaceState extends BaseState<Workspace, WorkspaceBloc>  with TickerPr
   //   );
   // }
 
-  
-
   // buildLeftSideBar({required NavigationType type}) {
   //   return AnimatedSize(
   //     curve: Curves.fastOutSlowIn,
   //           duration: new Duration(milliseconds: 300),
 
-  //     child: 
+  //     child:
   //   );
   // }
-
 
   @override
   get bloc => widget.bloc;
