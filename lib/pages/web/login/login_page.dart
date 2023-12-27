@@ -163,9 +163,9 @@ class _LoginPageState extends BaseState<LoginPage, LoginBloc>
                       String email = value["email"] as String;
                       String password = value["password"] as String;
 
-                      //bloc.signIn(email, password);
-                      Navigator.pushNamed(context, Routes.home,
-                          arguments: user);
+                      bloc.signIn(email, password);
+                      // Navigator.pushNamed(context, Routes.home,
+                      //     arguments: user);
                     },
                   ),
                 );

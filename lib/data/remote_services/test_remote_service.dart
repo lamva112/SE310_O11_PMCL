@@ -17,7 +17,7 @@ class TestRemoteService implements ITestRemoteService {
     List<Test> tests = [];
     try {
       final response = await _networkUtility.request(
-          'http://localhost:51111/api/Test', Method.GET);
+          'http://localhost:5111/api/Test', Method.GET);
 
       print("responne ${response}");
 

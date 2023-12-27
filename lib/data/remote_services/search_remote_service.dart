@@ -112,7 +112,7 @@ class SearchRemoteService implements ISearchRemoteService {
     List<Vocabulary> vocabularies = [];
     try {
       final response = await _networkUtility.request(
-          'http://localhost:51111/api/Vocabulary', Method.GET);
+          'http://localhost:5111/api/Vocabulary', Method.GET);
 
       print("responne ${response}");
 
@@ -141,7 +141,7 @@ class SearchRemoteService implements ISearchRemoteService {
   @override
   Future<bool?> addFavoriteVocabulary(String vocaId, String userId) async {
     final response = await _networkUtility.request(
-      'http://localhost:51111/api/FavoriteVocabulary',
+      'http://localhost:5111/api/FavoriteVocabulary',
       Method.POST,
       data: {
         "userId": userId,

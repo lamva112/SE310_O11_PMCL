@@ -19,8 +19,9 @@ class FavoriteBloc extends BaseBloc<FavoriteState> {
       stateStream.map((event) => event.listFaUnit);
 
   Future<void> loadData() async {
-    if (getUserId() != null) {
-      var data = await getFaListVocal(getUserId()!);
+    var userId = await sharedPreferencesRepo.getToken();
+    if (userId != null) {
+      var data = await getFaListVocal(userId);
       List<String> listVocal = [];
       data?.forEach((element) {
         if (element.vocabularyId != null) {

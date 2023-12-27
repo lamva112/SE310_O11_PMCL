@@ -38,25 +38,25 @@ class SearchBloc extends BaseBloc<SearchState> {
   }
 
   Future<void> addToFavorite(String vocaId) async {
-    String token = await sharedPreferencesRepo.getToken() ?? "";
+    //String token = await sharedPreferencesRepo.getToken() ?? "";
 
-    print("token ne ${token}");
-    // if (getUserId() != null) {
-    //   _searchRepository
-    //       .addFavoriteVocabulary(userId:getUserId()!, vocaId: vocaId)
-    //       .then(
-    //         (value) => value.fold(
-    //           (e) => emit(SearchState(state: state, error: e.toString())),
-    //           (data) async {
-    //             if (data == true) {
-    //               print("Add favoreite thang cong");
-    //             }
-    //           },
-    //         ),
-    //       )
-    //       .catchError(
-    //           (e) => emit(SearchState(state: state, error: e.toString())));
-    // }
+    //print("token ne ${token}");
+    if (getUserId() != null) {
+      _searchRepository
+          .addFavoriteVocabulary(userId:getUserId()!, vocaId: vocaId)
+          .then(
+            (value) => value.fold(
+              (e) => emit(SearchState(state: state, error: e.toString())),
+              (data) async {
+                if (data == true) {
+                  print("Add favoreite thang cong");
+                }
+              },
+            ),
+          )
+          .catchError(
+              (e) => emit(SearchState(state: state, error: e.toString())));
+    }
   }
 
   String? getUserId() {

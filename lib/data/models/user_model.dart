@@ -14,7 +14,8 @@ class User {
     email = json['email'];
     passWord = json['passWord'];
     userName = json['userName'];
-    dateOfBirth = (json['dateOfBirth']as String).covertToAppDateTime();
+    //dateOfBirth = (json['dateOfBirth']as String).covertToAppDateTime();
+    dateOfBirth = "23/10/2001";
   }
 
   Map<String, dynamic> toJson() {
@@ -42,5 +43,4 @@ class User {
       dateOfBirth: dateOfBirth ?? this.dateOfBirth,
     );
   }
-
 }
