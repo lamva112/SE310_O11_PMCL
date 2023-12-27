@@ -42,12 +42,15 @@ class CustomTextField extends StatefulWidget {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
-  late final TextEditingController? _controller = widget.textFieldConfig.controller;
+  late final TextEditingController? _controller =
+      widget.textFieldConfig.controller;
   bool _isObscureText = true;
+  
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onTap: widget.onTap,
       enableInteractiveSelection: widget.showCursor ?? true,
       showCursor: widget.showCursor ?? true,
       key: widget.textFieldKey,
@@ -57,7 +60,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
       textDirection: widget.textFieldConfig.textDirection,
       style: widget.textFieldConfig.style,
       autofocus: widget.textFieldConfig.autoFocus,
-      maxLines: widget.textFieldType == TextFieldType.password ? 1 : widget.textFieldConfig.maxLines,
+      maxLines: widget.textFieldType == TextFieldType.password
+          ? 1
+          : widget.textFieldConfig.maxLines,
       controller: _controller,
       autocorrect: widget.textFieldConfig.autocorrect,
       initialValue: widget.textFieldConfig.initialValue,
@@ -65,11 +70,15 @@ class _CustomTextFieldState extends State<CustomTextField> {
       cursorHeight: widget.textFieldConfig.cursorHeight,
       cursorWidth: widget.textFieldConfig.cursorWidth,
       cursorRadius: widget.textFieldConfig.cursorRadius,
-      textCapitalization: widget.textFieldType == TextFieldType.name ? TextCapitalization.words : TextCapitalization.none,
+      textCapitalization: widget.textFieldType == TextFieldType.name
+          ? TextCapitalization.words
+          : TextCapitalization.none,
       enabled: widget.textFieldConfig.isEnabled,
       enableSuggestions: widget.textFieldConfig.enableSuggestions,
       keyboardType: _getKeyboardType(),
-      obscureText: widget.textFieldType == TextFieldType.password ? _isObscureText : false,
+      obscureText: widget.textFieldType == TextFieldType.password
+          ? _isObscureText
+          : false,
       onChanged: widget.onChanged,
       onEditingComplete: widget.onEditingComplete,
       onFieldSubmitted: widget.onFieldSubmitted,
@@ -78,14 +87,18 @@ class _CustomTextFieldState extends State<CustomTextField> {
       textAlignVertical: widget.textFieldConfig.textAlignVertical,
       readOnly: widget.textFieldConfig.readOnly,
       textInputAction: widget.textFieldConfig.textInputAction,
-      scrollPadding: widget.textFieldConfig.scrollPadding ?? const EdgeInsets.all(20.0),
-      autovalidateMode: widget.textFieldConfig.validatorMode ?? AutovalidateMode.always,
+      scrollPadding:
+          widget.textFieldConfig.scrollPadding ?? const EdgeInsets.all(20.0),
+      autovalidateMode:
+          widget.textFieldConfig.validatorMode ?? AutovalidateMode.always,
       validator: widget.validator ??
           (value) {
             return _verifyData(value);
           },
       decoration: InputDecoration(
-        counterStyle: widget.decorationConfig.counterStyle ?? const TextStyle(height: double.minPositive, color: Colors.transparent),
+        counterStyle: widget.decorationConfig.counterStyle ??
+            const TextStyle(
+                height: double.minPositive, color: Colors.transparent),
         counterText: widget.decorationConfig.showCounterText,
         constraints: widget.decorationConfig.constraints,
         border: widget.decorationConfig.border,
@@ -93,12 +106,17 @@ class _CustomTextFieldState extends State<CustomTextField> {
         isCollapsed: widget.decorationConfig.isCollapsed ?? false,
         isDense: widget.decorationConfig.isDense ?? false,
         disabledBorder: widget.decorationConfig.disabledBorder,
-        focusedBorder: widget.decorationConfig.focusedBorder ?? _getTextFieldBorder(),
-        errorBorder: widget.decorationConfig.errorBorder ?? _getTextFieldBorder(isErrorType: true),
-        focusedErrorBorder: widget.decorationConfig.focusedErrorBorder ?? _getTextFieldBorder(isErrorType: true),
+        focusedBorder:
+            widget.decorationConfig.focusedBorder ?? _getTextFieldBorder(),
+        errorBorder: widget.decorationConfig.errorBorder ??
+            _getTextFieldBorder(isErrorType: true),
+        focusedErrorBorder: widget.decorationConfig.focusedErrorBorder ??
+            _getTextFieldBorder(isErrorType: true),
         enabled: widget.decorationConfig.enabled,
-        enabledBorder: widget.decorationConfig.enabledBorder ?? _getTextFieldBorder(),
-        errorStyle: widget.decorationConfig.errorStyle ?? TextStyle(color: Theme.of(context).colorScheme.error, fontSize: 12),
+        enabledBorder:
+            widget.decorationConfig.enabledBorder ?? _getTextFieldBorder(),
+        errorStyle: widget.decorationConfig.errorStyle ??
+            TextStyle(color: Theme.of(context).colorScheme.error, fontSize: 12),
         fillColor: widget.decorationConfig.fillColor,
         filled: widget.decorationConfig.filled,
         floatingLabelStyle: widget.decorationConfig.floatingLabelStyle,
@@ -128,11 +146,15 @@ class _CustomTextFieldState extends State<CustomTextField> {
       return widget.decorationConfig.suffixIcon;
     }
 
-    if (widget.textFieldType == TextFieldType.password && widget.decorationConfig.showVisiblePasswordIcon) {
+    if (widget.textFieldType == TextFieldType.password &&
+        widget.decorationConfig.showVisiblePasswordIcon) {
       return IconButton(
         icon: Icon(
-          _isObscureText ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-          color: widget.decorationConfig.visiblePasswordIconColor ?? Colors.grey,
+          _isObscureText
+              ? Icons.visibility_off_outlined
+              : Icons.visibility_outlined,
+          color:
+              widget.decorationConfig.visiblePasswordIconColor ?? Colors.grey,
           size: widget.decorationConfig.visiblePasswordIconSize,
         ),
         splashColor: widget.decorationConfig.suffixBtnSplashColor,
@@ -168,8 +190,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   OutlineInputBorder _getTextFieldBorder({bool isErrorType = false}) {
     var defaultBorder = OutlineInputBorder(
-      borderSide: BorderSide(color: isErrorType ? Colors.red : Colors.grey, width: 0.5),
-      borderRadius: widget.borderRadius ?? const BorderRadius.all(Radius.circular(4.0)),
+      borderSide:
+          BorderSide(color: isErrorType ? Colors.red : Colors.grey, width: 0.5),
+      borderRadius:
+          widget.borderRadius ?? const BorderRadius.all(Radius.circular(4.0)),
     );
 
     return defaultBorder;
@@ -180,15 +204,19 @@ class _CustomTextFieldState extends State<CustomTextField> {
       case TextFieldType.text:
         return null;
       case TextFieldType.password:
-        return TextFieldValidatorUtils.validatePassword(value, errorMessage: widget.decorationConfig.errorMessage);
+        return TextFieldValidatorUtils.validatePassword(value,
+            errorMessage: widget.decorationConfig.errorMessage);
       case TextFieldType.email:
-        return TextFieldValidatorUtils.validateEmail(value, errorMessage: widget.decorationConfig.errorMessage);
+        return TextFieldValidatorUtils.validateEmail(value,
+            errorMessage: widget.decorationConfig.errorMessage);
       case TextFieldType.phoneNumber:
-        return TextFieldValidatorUtils.validatePhoneNumber(value, errorMessage: widget.decorationConfig.errorMessage);
+        return TextFieldValidatorUtils.validatePhoneNumber(value,
+            errorMessage: widget.decorationConfig.errorMessage);
       case TextFieldType.multiline:
         return null;
       case TextFieldType.name:
-        return TextFieldValidatorUtils.validateName(value, errorMessage: widget.decorationConfig.errorMessage);
+        return TextFieldValidatorUtils.validateName(value,
+            errorMessage: widget.decorationConfig.errorMessage);
       case TextFieldType.number:
         return null;
     }

@@ -18,4 +18,6 @@ class UnitHasVocabulary {
     data['vocabularyId'] = vocabularyId;
     return data;
   }
+
+  
 }

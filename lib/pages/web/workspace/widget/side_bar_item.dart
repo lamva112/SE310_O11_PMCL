@@ -31,20 +31,20 @@ class SideBarItem extends StatelessWidget {
     switch (type) {
       case null:
       case NavigationType.home:
-        icon = Icons.folder_open_rounded;
+        icon = Icons.home_max_rounded;
         title = "Home";
         break;
       case NavigationType.search:
-        icon = Icons.space_dashboard_outlined;
-        title = "Search";
+        icon = Icons.search_outlined;
+        title = "Dictionary";
         break;
       case NavigationType.settings:
-        icon = Icons.settings;
-        title = "set";
+        icon = Icons.quiz_outlined;
+        title = "Quiz";
         break;
       case NavigationType.template:
-        icon = Icons.dashboard_outlined;
-        title = "dash";
+        icon = Icons.psychology_alt_outlined;
+        title = "Chat bot";
         break;
     }
     return InkWell(

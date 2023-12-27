@@ -13,6 +13,7 @@ import '../../../core/core.dart';
 import '../../../generated/l10n.dart';
 import '../../../router/router.dart';
 import '../../../widgets/custom_textfield/custom_textfield.dart';
+import '../../../widgets/favorite_button.dart';
 
 class SearchPage extends StatefulWidget {
   final SearchBloc bloc;
@@ -86,6 +87,7 @@ class _SearchPageState extends BaseState<SearchPage, SearchBloc> {
                           onChanged: (value) {
                             if (value != "") {
                               isSearch.add(true);
+                              bloc.searchVocabulary(value);
                             } else {
                               isSearch.add(false);
                             }
@@ -242,28 +244,11 @@ class _SearchPageState extends BaseState<SearchPage, SearchBloc> {
                                                         horizontal: 12),
                                                     child: Row(
                                                       children: [
-                                                        userData[index]
-                                                                ["isLiked"]
-                                                            ? IconButton(
-                                                                onPressed:
-                                                                    () {},
-                                                                icon:
-                                                                    const Icon(
-                                                                  Icons
-                                                                      .favorite,
-                                                                  color: Colors
-                                                                      .pink,
-                                                                ),
-                                                              )
-                                                            : IconButton(
-                                                                onPressed:
-                                                                    () {},
-                                                                icon: const Icon(
-                                                                    Icons
-                                                                        .favorite_outline),
-                                                              ),
+                                                        FavoriteButton(
+                                                          onTap: (){},
+                                                        ),
                                                         const Spacer(),
-                                                        AudioPlayerButton()
+                                                        AudioPlayerButton(url: data?[index].pronouce??"")
                                                       ],
                                                     ),
                                                   ),

@@ -111,7 +111,7 @@ class SearchRemoteService implements ISearchRemoteService {
     List<Vocabulary> vocabularies = [];
     try {
       final response = await _networkUtility.request(
-          'http://localhost:51112/api/Vocabulary', Method.GET);
+          'http://localhost:51111/api/Vocabulary', Method.GET);
 
       print("responne ${response}");
 

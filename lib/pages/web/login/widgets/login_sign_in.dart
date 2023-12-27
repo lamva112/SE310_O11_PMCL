@@ -9,8 +9,10 @@ import '../../../../widgets/custom_textfield/custom_textfield.dart';
 import 'login_social.dart';
 
 class LoginSignIn extends StatefulWidget {
+  final ValueChanged<Map<String, String>> onChanged;
   const LoginSignIn({
     Key? key,
+    required this.onChanged,
   }) : super(key: key);
 
   @override
@@ -82,40 +84,46 @@ class __LoginSignInState extends State<LoginSignIn> {
               SizedBox(
                 height: 48.0,
               ),
-              _buildSignInButton(context),
+              Container(
+                constraints: const BoxConstraints(
+                  maxWidth: 250.0,
+                ),
+                child: InkWellWrapper(
+                  paddingChild: EdgeInsets.symmetric(vertical: 16),
+                  width: 250,
+                  onTap: () {
+                    if (_formKey.currentState?.validate() == true) {
+                      widget.onChanged.call({
+                        "email": _emailController.text.trim(),
+                        "password": _passwordController.text.trim()
+                      });
+                    }
+                    //Navigator.pushNamed(context, Routes.home);
+                  },
+                  border: Border.all(
+                    color: AppColors.primaryBlack,
+                    width: 2.0,
+                  ),
+                  borderRadius: BorderRadius.circular(30.0),
+                  color: AppColors.primaryBlack,
+                  child: Text(
+                    S.of(context).sign_in,
+                    style: const TextStyle(
+                      color: AppColors.primaryWhite,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 0.5,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              )
             ],
           ),
         ),
       );
 
-  Widget _buildSignInButton(BuildContext context) => Container(
-        constraints: const BoxConstraints(
-          maxWidth: 250.0,
-        ),
-        child: InkWellWrapper(
-          paddingChild: EdgeInsets.symmetric(vertical: 16),
-          width: 250,
-          onTap: () {
-            Navigator.pushNamed(context, Routes.home);
-          },
-          border: Border.all(
-            color: AppColors.primaryBlack,
-            width: 2.0,
-          ),
-          borderRadius: BorderRadius.circular(30.0),
-          color: AppColors.primaryBlack,
-          child: Text(
-            S.of(context).sign_in,
-            style: const TextStyle(
-              color: AppColors.primaryWhite,
-              fontSize: 14.0,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 0.5,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ),
-      );
+  
 
   TextFieldConfig textFieldConfig({required TextEditingController controller}) {
     return TextFieldConfig(

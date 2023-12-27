@@ -2,11 +2,11 @@ import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../data/models/vocabulary_Model.dart';
+import '../../../../data/data.dart';
 import '../../../../resources/colors.dart';
 
 class UnitFlipCard extends StatelessWidget {
-  final Vocabulary vocabulary;
+  final Vocabulary? vocabulary;
   final Function(bool)? onFlipDone;
   const UnitFlipCard({
     super.key,
@@ -32,7 +32,7 @@ class UnitFlipCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              vocabulary.word!,
+              vocabulary?.word??"",
               style: const TextStyle(
                 fontSize: 40,
                 color: AppColors.primaryBlack,
@@ -40,14 +40,14 @@ class UnitFlipCard extends StatelessWidget {
               ),
             ),
             Text(
-              vocabulary.type!,
+              vocabulary?.type??"",
               style: const TextStyle(
                 fontSize: 15,
                 color: AppColors.primaryBlack,
                 fontWeight: FontWeight.w700,
               ),
             ),
-            Text(vocabulary.phonetics!,
+            Text(vocabulary?.phonetics??"",
                 style: const TextStyle(
                   fontSize: 20,
                   color: AppColors.primaryGradientDark,
@@ -66,7 +66,7 @@ class UnitFlipCard extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: vocabulary.hint,
+                    text: vocabulary?.hint??"",
                     style: const TextStyle(
                       fontSize: 13,
                       color: AppColors.primaryBlack,
@@ -97,7 +97,7 @@ class UnitFlipCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Image.network(
-                  vocabulary.image!,
+                  vocabulary?.image??"",
                   scale: 3,
                 ),
                 // PronounceWidget(
@@ -118,7 +118,7 @@ class UnitFlipCard extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: vocabulary.meaning,
+                    text: vocabulary?.meaning??"",
                     style: const TextStyle(
                       fontSize: 10,
                       color: AppColors.primaryBlack,

@@ -5,5 +5,8 @@ import '../data/data.dart';
 class LocalServiceDependencies {
   static Future setup(GetIt injector) async {
     injector.registerFactory<ISplashLocalService>(() => SplashLocalService());
+    injector.registerFactory<ISharedPreferencesService>(
+        () => SharedPreferencesService(sharedPreferences: injector()));
+
   }
 }

@@ -1,3 +1,9 @@
 export 'splash_repository.dart';
 export 'search_repository.dart';
 export 'unit_repository.dart';
+export 'vocabulary_repository.dart';
+export 'test_repository.dart';
+export 'question_repository.dart';
+export 'option_repository.dart';
+export 'auth_repository.dart';
+export 'shared_preferences_repository.dart';

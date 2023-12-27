@@ -22,4 +22,12 @@ class UnitHasVocabularyResponse {
     }
     return data;
   }
+
+  UnitHasVocabularyResponse copyWith({
+    List<UnitHasVocabulary>? unitHasVocabulary,
+  }) {
+    return UnitHasVocabularyResponse(
+      unitHasVocabulary: unitHasVocabulary ?? this.unitHasVocabulary,
+    );
+  }
 }

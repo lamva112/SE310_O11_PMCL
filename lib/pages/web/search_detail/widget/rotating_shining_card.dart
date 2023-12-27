@@ -188,7 +188,7 @@ class RotatingShiningCardState extends State<RotatingShiningCard> {
                                         ),
                                       ),
                                 const Spacer(),
-                                AudioPlayerButton()
+                                AudioPlayerButton(url: ""),
                               ],
                             ),
                           ),

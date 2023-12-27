@@ -10,6 +10,8 @@ class Routes {
   static String get vocabulary => '/vocabulary';
   static String get searchDetail => '/searchDetail';
   static String get vocabularyDetail => '/vocabularyDetail';
+  static String get prepare => '/prepare';
+  static String get testDetail => '/testDetail';
 
   static getRoute(RouteSettings settings) {
     Widget widget;

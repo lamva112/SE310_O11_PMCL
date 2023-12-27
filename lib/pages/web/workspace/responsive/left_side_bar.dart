@@ -2,20 +2,21 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../../../constants.dart';
 import '../../../../../enums.dart';
-import '../../../../../resources/colors.dart';
 
+import '../../../../data/data.dart';
 import '../widget/side_bar_item.dart';
 
 class LeftSideBar extends StatelessWidget {
   final NavigationType type;
+  final User? user;
   final Function(NavigationType) onTapSideBarItem;
 
   const LeftSideBar({
     required this.type,
     required this.onTapSideBarItem,
     super.key,
+    this.user,
   });
 
   @override
@@ -34,226 +35,69 @@ class LeftSideBar extends StatelessWidget {
             scrollDirection: Axis.vertical,
             physics: const BouncingScrollPhysics(),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 20),
                 LottieBuilder.asset(
                   "assets/images/json/avatar.json",
                   fit: BoxFit.cover,
-                  width: 150,
-                  height: 150,
+                  width: 250,
+                  height: 250,
                 ),
                 const SizedBox(height: 10),
-                const Text(
-                  "Abhivan Khare",
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 5),
-                const Text(
-                  "@trungHieu",
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                Align(
                   alignment: Alignment.centerLeft,
-                  child: const Text(
-                    "Trung Hieu",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Container(
-                  padding: const EdgeInsets.only(left: 25, right: 10),
-                  alignment: Alignment.centerLeft,
-                  child: const Text(
-                    "UI Designer | Traveler | Lifestyle Blogger",
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 30),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  alignment: Alignment.centerLeft,
-                  child: const Text(
-                    "Story Highlights",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 15),
-                Container(
-                  height: 70,
-                  // color: Colors.red,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: const [
-                          Text(
-                            "472",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            "Posts",
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
-                        ],
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Text(
+                      "Student information",
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
                       ),
-                      const VerticalDivider(
-                        endIndent: 35,
-                        color: Colors.black,
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: const [
-                          Text(
-                            "12.4K",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            "Followers",
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const VerticalDivider(
-                        endIndent: 35,
-                        color: Colors.black,
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: const [
-                          Text(
-                            "228",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            "Following",
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  alignment: Alignment.centerLeft,
-                  child: const Text(
-                    "Abhivan Khare",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
-                const SizedBox(height: 5),
-                Container(
-                  padding: const EdgeInsets.only(left: 25, right: 10),
-                  alignment: Alignment.centerLeft,
-                  child: const Text(
-                    "UI Designer | Traveler | Lifestyle Blogger",
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
+                SizedBox(
+                  height: 24,
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                Align(
                   alignment: Alignment.centerLeft,
-                  child: const Text(
-                    "Story Highlights",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 15),
-                Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    alignment: Alignment.centerLeft,
-                    child: ScrollConfiguration(
-                      behavior: ScrollConfiguration.of(context)
-                          .copyWith(dragDevices: {
-                        PointerDeviceKind.mouse,
-                        PointerDeviceKind.touch,
-                      }, scrollbars: false),
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        physics: const BouncingScrollPhysics(),
-                        child: Row(
-                          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            ...List.generate(storyHighlights.length, (index) {
-                              if (index == 0) {
-                                return Column(
-                                  children: const [
-                                    CircleAvatar(
-                                      radius: 25,
-                                      backgroundColor: Colors.grey,
-                                      child:
-                                          Icon(Icons.add, color: Colors.black),
-                                    ),
-                                    SizedBox(height: 5),
-                                    Text("New")
-                                  ],
-                                );
-                              }
-                              return Container(
-                                margin: const EdgeInsets.only(left: 10),
-                                child: Column(
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 25,
-                                      backgroundImage: AssetImage(
-                                        "${storyHighlights[index]["img"]}",
-                                      ),
-                                    ),
-                                    const SizedBox(height: 5),
-                                    Text(storyHighlights[index]["name"])
-                                  ],
-                                ),
-                              );
-                            })
-                          ],
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "User name: ${user?.userName ?? ""}",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                      ),
-                    )),
+                        const SizedBox(height: 5),
+                        Text(
+                          "Email: ${user?.email ?? ""}",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          "Birthday: ${user?.dateOfBirth ?? ""}",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 5),
                 const SizedBox(height: 25),
                 SideBarItem(
                   type: NavigationType.home,

@@ -126,34 +126,49 @@ class _VocabularyPageState extends BaseState<VocabularyPage, VocabularyBloc> {
                                 //   CoffeeItem.mockItems[index - 1].image,
                                 //   fit: BoxFit.fitHeight,
                                 // ),
-                                child: Column(
+                                child: Stack(
+                                  alignment: Alignment.center,
                                   children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(12),
-                                      child: ImageNetwork(
-                                        image: data1?[index - 1].image ?? "",
-                                        height: 230,
-                                        width: 200,
-                                        duration: 1500,
-                                        curve: Curves.easeIn,
-                                        onPointer: true,
-                                        debugPrint: false,
-                                        fullScreen: false,
-                                        fitAndroidIos: BoxFit.cover,
-                                        fitWeb: BoxFitWeb.cover,
+                                    IconButton(
+                                        onPressed: () {},
+                                        icon: Icon(Icons.favorite)),
+                                    Container(
+                                      constraints:
+                                          BoxConstraints(maxWidth: 200),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          color: Colors.white),
+                                      child: ClipRRect(
                                         borderRadius: BorderRadius.circular(12),
-                                        onLoading:
-                                            const CircularProgressIndicator(
-                                          color: Colors.indigoAccent,
+                                        child: ImageNetwork(
+                                          image: data1?[index - 1].image ?? "",
+                                          height: 230,
+                                          width: 200,
+                                          duration: 1500,
+                                          curve: Curves.easeIn,
+                                          onPointer: true,
+                                          debugPrint: false,
+                                          fullScreen: false,
+                                          fitAndroidIos: BoxFit.cover,
+                                          fitWeb: BoxFitWeb.cover,
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          onLoading:
+                                              const CircularProgressIndicator(
+                                            color: Colors.indigoAccent,
+                                          ),
+                                          onError: const Icon(
+                                            Icons.error,
+                                            color: Colors.red,
+                                          ),
+                                          onTap: () {
+                                            Navigator.pushNamed(context,
+                                                Routes.vocabularyDetail,
+                                                arguments:
+                                                    data1?[index - 1].id);
+                                          },
                                         ),
-                                        onError: const Icon(
-                                          Icons.error,
-                                          color: Colors.red,
-                                        ),
-                                        onTap: () {
-                                          Navigator.pushNamed(
-                                              context, Routes.vocabularyDetail);
-                                        },
                                       ),
                                     ),
                                   ],
@@ -215,18 +230,6 @@ class _VocabularyPageState extends BaseState<VocabularyPage, VocabularyBloc> {
                         const SizedBox(
                           height: 20,
                         ),
-                        // AnimatedSwitcher(
-                        //   duration: const Duration(milliseconds: 300),
-                        //   child: Text(
-                        //     "${CoffeeItem.mockItems[_currentHeading.clamp(0, CoffeeItem.mockItems.length - 1)].price.toStringAsFixed(0)} section",
-                        //     style: GoogleFonts.montserrat(
-                        //       fontSize: 28,
-                        //       fontWeight: FontWeight.w500,
-                        //       height: 1,
-                        //       color: AppColors.primaryWhite,
-                        //     ),
-                        //   ),
-                        // ),
                       ],
                     )),
                 ..._buildOverlays(),
@@ -253,28 +256,6 @@ class _VocabularyPageState extends BaseState<VocabularyPage, VocabularyBloc> {
           ], shape: BoxShape.circle),
         ),
       ),
-      // Align(
-      //   alignment: Alignment.centerLeft + const Alignment(-0.35, -.5),
-      //   child: Container(
-      //     width: 60,
-      //     height: 200,
-      //     decoration: const BoxDecoration(
-      //       // color: kBrownColor,
-      //       boxShadow: [
-      //         BoxShadow(
-      //           color: AppColors.primaryBrown,
-      //           blurRadius: 50,
-      //           spreadRadius: 20,
-      //           offset: Offset(5, 0),
-      //         ),
-      //       ],
-      //       borderRadius: BorderRadius.only(
-      //         topRight: Radius.circular(50),
-      //         bottomRight: Radius.circular(50),
-      //       ),
-      //     ),
-      //   ),
-      // ),
       Align(
         alignment: Alignment.bottomRight + const Alignment(5.8, -0.45),
         child: const SizedBox(

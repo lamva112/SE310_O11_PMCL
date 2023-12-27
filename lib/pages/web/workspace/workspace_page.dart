@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:se310_o11_pmcl/pages/pages.dart';
-import 'package:se310_o11_pmcl/pages/web/vocabulary/vocabulary_page.dart';
+import 'package:se310_o11_pmcl/pages/web/test/test.dart';
 
 import '../../../blocs/blocs.dart';
 import '../../../core/core.dart';
+import '../../../data/data.dart';
 import '../../../enums.dart';
 import '../../../resources/colors.dart';
 import '../../../widgets/responsive_widget.dart';
-import '../search/widget/audiod.dart';
 import 'responsive/left_side_bar.dart';
-import 'responsive/responsive.dart';
 import 'widget/keep_alive_page.dart';
 
 class Workspace extends StatefulWidget {
   final WorkspaceBloc bloc;
   final SearchBloc searchBloc;
   final VocabularyBloc vocabularyBloc;
+  final TestBloc testBloc;
 
   const Workspace(
       {Key? key,
       required this.searchBloc,
       required this.bloc,
-      required this.vocabularyBloc})
+      required this.vocabularyBloc,
+      required this.testBloc})
       : super(key: key);
 
   @override
@@ -33,13 +34,6 @@ class _WorkspaceState extends BaseState<Workspace, WorkspaceBloc>
     with TickerProviderStateMixin {
   BehaviorSubject<NavigationType> selectedSideBar =
       BehaviorSubject<NavigationType>.seeded(NavigationType.home);
-  // BehaviorSubject<bool> showSuffixIcon = BehaviorSubject<bool>.seeded(false);
-  // BehaviorSubject<TemplateModel?> selectedTemplate = BehaviorSubject<TemplateModel?>.seeded(null);
-  // BehaviorSubject<SuggestCategories?> hoverCategory = BehaviorSubject<SuggestCategories?>.seeded(null);
-  // List<String> suggestFilter = ['E-commerce', 'Food', 'Shop'];
-  // TextEditingController templateEditingController = TextEditingController();
-  // List<Categories> selectedCategories = [];
-  List<String> suggestSearch = ['Shopping', 'App', 'Template'];
   BehaviorSubject<String?> hoverSuggestSearch =
       BehaviorSubject<String?>.seeded(null);
   bool previousStateListCategory = true;
@@ -52,7 +46,24 @@ class _WorkspaceState extends BaseState<Workspace, WorkspaceBloc>
   final keyC = GlobalKey();
   final keySmallScreen = GlobalKey();
 
+  var user = User(
+    id: '1',
+    email: 'user1@example.com',
+    passWord: 'password123',
+    userName: 'User One',
+    dateOfBirth: '1990-01-15', // assuming 'YYYY-MM-DD' format
+  );
+
   //AppColors get appColors => Theme.of(context).extension<AppColors>()!;
+  @override
+  void onReceivePayload(Object? payload) {
+    User? user = payload as User;
+    if (user != null) {
+      bloc.getUser(user);
+    }
+
+    super.onReceivePayload(payload);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,12 +93,17 @@ class _WorkspaceState extends BaseState<Workspace, WorkspaceBloc>
         NavigationType type = snapshot.data ?? NavigationType.home;
         return Row(
           children: [
-            LeftSideBar(
-              type: type,
-              onTapSideBarItem: (value) {
-                selectedSideBar.add(value);
-              },
-            ),
+            StreamBuilder<User?>(
+                stream: bloc.userStream,
+                builder: (context, snapshot) {
+                  return LeftSideBar(
+                    user: snapshot.data,
+                    type: type,
+                    onTapSideBarItem: (value) {
+                      selectedSideBar.add(value);
+                    },
+                  );
+                }),
             const SizedBox(height: 1),
             Expanded(
               flex: 7,
@@ -95,21 +111,6 @@ class _WorkspaceState extends BaseState<Workspace, WorkspaceBloc>
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // TopBar(
-                  //   type: type,
-                  //   authStream: widget.authBloc.userAuthStream,
-                  //   showSuffixIconStream: showSuffixIcon,
-                  //   onSearchData: (value) {
-                  //     bloc.onSearchData(value);
-                  //   },
-                  //   onSignOut: () {
-                  //     widget.authBloc.signOut();
-                  //     reloadStream.add(false);
-                  //   },
-                  //   onTapSetting: (value) {
-                  //     selectedSideBar.add(NavigationType.settings);
-                  //   },
-                  // ),
                   allPageSideBar(type, size, isSmallPage: true),
                 ],
               ),
@@ -141,19 +142,12 @@ class _WorkspaceState extends BaseState<Workspace, WorkspaceBloc>
         index: NavigationType.values.indexOf(type),
         children: [
           KeepAlivePage(child: VocabularyPage(bloc: widget.vocabularyBloc)),
-          // KeepAlivePage(
-          //   child:
-          // ),
           SearchPage(bloc: widget.searchBloc),
           KeepAlivePage(
-            child: Container(
-              child: Text("page 3"),
-            ),
+            child: ChatBotPage()
           ),
           KeepAlivePage(
-            child: Container(
-              child: Text("page 4"),
-            ),
+            child: TestPage(bloc: widget.testBloc),
           ),
         ],
       ),

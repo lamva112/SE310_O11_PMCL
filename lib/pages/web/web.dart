@@ -5,3 +5,6 @@ export 'search/search.dart';
 export 'vocabulary/vocabulary.dart';
 export 'search_detail/search_detail.dart';
 export 'vocabulary_detail/vocabulary_detail.dart';
+export 'test_detail/test_detail.dart';
+export 'repare/repare.dart';
+export 'chat_bot/chat_bot.dart';

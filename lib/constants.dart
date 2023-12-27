@@ -3,7 +3,12 @@ class AppConstants {}
 
 class SharedPreferencesKey {
   static const String languageCode = 'languageCode';
+  static const String token = 'token';
+  static const String userPassedOnBoarding = 'passedOnBoarding';
+  static const String searchingAddress = 'searchingAddress';
 }
+
+String api_key = "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";
 
 List userData = [
   {
@@ -106,6 +111,7 @@ List userData = [
     "isLive": false,
   },
 ];
+
 List storyData = [
   {
     "name": "Sonya Leena",

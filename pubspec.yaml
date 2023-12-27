@@ -83,6 +83,14 @@ dependencies:
   flip_card: ^0.7.0
   appinio_swiper: ^2.1.0
   lit_starfield: ^0.1.1
+  material_dialogs: ^1.1.4
+  awesome_dialog: ^3.1.0
+  chatgpt_api_client: ^1.0.4
+  dash_chat_2: ^0.0.19
+
+
+
+
 
 
   # The following adds the Cupertino Icons font to your application.

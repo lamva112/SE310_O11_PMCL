@@ -1,7 +1,6 @@
 import 'package:get_it/get_it.dart';
 
 import '../data/data.dart';
-import '../data/repositories/search_repository.dart';
 
 class RepositoryDependencies {
   static Future setup(GetIt injector) async {
@@ -14,9 +13,32 @@ class RepositoryDependencies {
           remoteService: injector(),
           networkInfo: injector(),
         ));
-        injector.registerFactory<IUnitRepository>(() => UnitReppsitory(
+    injector.registerFactory<IUnitRepository>(() => UnitReppsitory(
           remoteService: injector(),
           networkInfo: injector(),
         ));
+    injector.registerFactory<IVocabularyRepository>(() => VocabularyRepository(
+          remoteService: injector(),
+          networkInfo: injector(),
+        ));
+    injector.registerFactory<ITestRepository>(() => TestReppsitory(
+          remoteService: injector(),
+          networkInfo: injector(),
+        ));
+    injector.registerFactory<IQuestionRepository>(() => QuestionRepository(
+          remoteService: injector(),
+          networkInfo: injector(),
+        ));
+    injector.registerFactory<IOptionRepository>(() => OptionRepository(
+          remoteService: injector(),
+          networkInfo: injector(),
+        ));
+    injector.registerFactory<IAuthRepository>(() => AuthRepository(
+          remoteService: injector(),
+          networkInfo: injector(),
+        ));
+    injector.registerFactory<ISharedPreferencesRepository>(
+        () => SharedPreferencesRepository(injector()));
+
   }
 }
