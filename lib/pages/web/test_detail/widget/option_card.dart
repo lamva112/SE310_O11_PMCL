@@ -9,7 +9,8 @@ class OptionCard extends StatelessWidget {
     super.key,
     required this.isLocked,
     required this.questionOption,
-    required this.onTap, required this.title,
+    required this.onTap,
+    required this.title,
   });
 
   @override
@@ -39,7 +40,10 @@ class OptionCard extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         margin: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
-          border: Border.all(color: questionOption ? Colors.green : Colors.red),
+          border: Border.all(
+              color: isLocked == true
+                  ? (questionOption ? Colors.green : Colors.red)
+                  : Colors.black26),
           color: Colors.grey.shade100,
           borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),

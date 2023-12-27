@@ -245,10 +245,22 @@ class _SearchPageState extends BaseState<SearchPage, SearchBloc> {
                                                     child: Row(
                                                       children: [
                                                         FavoriteButton(
-                                                          onTap: (){},
+                                                          onTap: () {
+                                                            if (data?[index]
+                                                                    .id !=
+                                                                null) {
+                                                              bloc.addToFavorite(
+                                                                  data?[index]
+                                                                          ?.id ??
+                                                                      "");
+                                                            }
+                                                          },
                                                         ),
                                                         const Spacer(),
-                                                        AudioPlayerButton(url: data?[index].pronouce??"")
+                                                        AudioPlayerButton(
+                                                            url: data?[index]
+                                                                    .pronouce ??
+                                                                "")
                                                       ],
                                                     ),
                                                   ),

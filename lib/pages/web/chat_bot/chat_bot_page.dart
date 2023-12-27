@@ -17,7 +17,8 @@ class _ChatBotPageState extends State<ChatBotPage> {
   final ChatUser _gptUser =
       ChatUser(id: '2', firstName: "Panda", lastName: 'Lecture');
   ChatGptApiClient client = ChatGptApiClient(
-      api_key, ChatGptModelOption(stream: false, maxPropmtStack: 3));
+      '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',
+      ChatGptModelOption(stream: false, maxPropmtStack: 3));
   List<ChatMessage> messages = <ChatMessage>[];
 
   @override
@@ -40,9 +41,9 @@ class _ChatBotPageState extends State<ChatBotPage> {
                       text: response.choices[0].text));
             });
           }, onStreamData: (ChatGptApiResponse response) {
-            // print(response);
+            print(response);
           }, onStreamEnd: () {
-            // print('end');
+            print('end');
           });
         },
         messages: messages,

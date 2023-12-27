@@ -49,7 +49,7 @@ class _TestPageState extends BaseState<TestPage, TestBloc> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, Routes.prepare,arguments: test.questions);
+        //Navigator.pushNamed(context, Routes.prepare,arguments: test.questions);
       },
       child: Scaffold(
         backgroundColor: Colors.black,
@@ -72,7 +72,7 @@ class _TestPageState extends BaseState<TestPage, TestBloc> {
                         return AnimatedCard(
                           test: data?[index],
                           onTap: () {
-                            Navigator.pushNamed(context, Routes.prepare);
+                            Navigator.pushNamed(context, Routes.prepare,arguments: data?[index].questions);
                           },
                           activeColor: activeColor,
                           inactiveColor: inActiveColor,

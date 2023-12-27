@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_network/image_network.dart';
 import 'package:se310_o11_pmcl/resources/colors.dart';
+import 'package:se310_o11_pmcl/widgets/favorite_button.dart';
 import '../../../blocs/blocs.dart';
 import '../../../core/core.dart';
 import '../../../data/data.dart';
@@ -129,9 +130,6 @@ class _VocabularyPageState extends BaseState<VocabularyPage, VocabularyBloc> {
                                 child: Stack(
                                   alignment: Alignment.center,
                                   children: [
-                                    IconButton(
-                                        onPressed: () {},
-                                        icon: Icon(Icons.favorite)),
                                     Container(
                                       constraints:
                                           BoxConstraints(maxWidth: 200),
@@ -171,6 +169,7 @@ class _VocabularyPageState extends BaseState<VocabularyPage, VocabularyBloc> {
                                         ),
                                       ),
                                     ),
+                                    
                                   ],
                                 ),
                               ),

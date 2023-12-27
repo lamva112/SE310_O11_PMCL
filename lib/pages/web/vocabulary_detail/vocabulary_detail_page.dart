@@ -22,6 +22,7 @@ class _VocabularyDetailState
     extends BaseState<VocabularyDetailPage, VocabularyDetailBloc> {
   var isShowBackButton = BehaviorSubject.seeded(false);
   final AppinioSwiperController controller = AppinioSwiperController();
+  var unitId = '';
   // var data = Vocabulary(
   //     id: "64147d927edf0126d1f6ef93",
   //     type: "noun",
@@ -36,7 +37,6 @@ class _VocabularyDetailState
 
   @override
   Future<void> onReceivePayload(Object? payload) async {
-    var unitId = '';
     try {
       unitId = payload as String;
       bloc.loadData(unitId);
@@ -76,8 +76,38 @@ class _VocabularyDetailState
               Expanded(
                 flex: 1,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [],
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        icon: Icon(
+                          Icons.close,
+                          color: Colors.white,
+                          size: 24,
+                        )),
+                    InkWellWrapper(
+                      onTap: () {
+                        bloc.addToFavorite(unitId);
+                        Navigator.of(context).pop();
+                      },
+                      color: Colors.white,
+                      paddingChild: EdgeInsets.symmetric(
+                        vertical: 12,
+                        horizontal: 24,
+                      ),
+                      child: Text(
+                        "Add to favorite",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Expanded(
@@ -140,19 +170,13 @@ class _VocabularyDetailState
                     StreamBuilder<List<Vocabulary>?>(
                         stream: bloc.unitStream,
                         builder: (context, snapshot) {
-                          // if (!snapshot.hasData) {
-                          //   return Container(
-                          //     width: 50,
-                          //     height: 50,
-                          //     color: Colors.blue,
-                          //   );
-                          // }
                           var data = snapshot.data ?? [];
                           return SizedBox(
-                            width: MediaQuery.of(context).size.width / 4,
+                            width: 350,
+                            height: 450,
                             child: UnitSwipeableStack(
                               items: List.generate(
-                                data?.length ?? 0,
+                                data.length ?? 0,
                                 (index) => UnitFlipCard(
                                   vocabulary: data[index],
                                 ),
@@ -163,6 +187,7 @@ class _VocabularyDetailState
                               controller: controller,
                             ),
                           );
+                          
                         }),
                   ],
                 ),

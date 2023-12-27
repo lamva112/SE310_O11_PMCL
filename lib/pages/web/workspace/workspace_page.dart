@@ -9,6 +9,7 @@ import '../../../data/data.dart';
 import '../../../enums.dart';
 import '../../../resources/colors.dart';
 import '../../../widgets/responsive_widget.dart';
+import '../favorite/favorite.dart';
 import 'responsive/left_side_bar.dart';
 import 'widget/keep_alive_page.dart';
 
@@ -17,13 +18,14 @@ class Workspace extends StatefulWidget {
   final SearchBloc searchBloc;
   final VocabularyBloc vocabularyBloc;
   final TestBloc testBloc;
+  final FavoriteBloc favoriteBloc;
 
   const Workspace(
       {Key? key,
       required this.searchBloc,
       required this.bloc,
       required this.vocabularyBloc,
-      required this.testBloc})
+      required this.testBloc, required this.favoriteBloc})
       : super(key: key);
 
   @override
@@ -46,7 +48,7 @@ class _WorkspaceState extends BaseState<Workspace, WorkspaceBloc>
   final keyC = GlobalKey();
   final keySmallScreen = GlobalKey();
 
-  var user = User(
+  var user1 = User(
     id: '1',
     email: 'user1@example.com',
     passWord: 'password123',
@@ -57,9 +59,13 @@ class _WorkspaceState extends BaseState<Workspace, WorkspaceBloc>
   //AppColors get appColors => Theme.of(context).extension<AppColors>()!;
   @override
   void onReceivePayload(Object? payload) {
-    User? user = payload as User;
-    if (user != null) {
-      bloc.getUser(user);
+    try {
+      User? user = payload as User;
+      if (user != null) {
+        bloc.getUser(user);
+      }
+    } catch (e) {
+      print(e);
     }
 
     super.onReceivePayload(payload);
@@ -143,12 +149,11 @@ class _WorkspaceState extends BaseState<Workspace, WorkspaceBloc>
         children: [
           KeepAlivePage(child: VocabularyPage(bloc: widget.vocabularyBloc)),
           SearchPage(bloc: widget.searchBloc),
-          KeepAlivePage(
-            child: ChatBotPage()
-          ),
+          KeepAlivePage(child: ChatBotPage()),
           KeepAlivePage(
             child: TestPage(bloc: widget.testBloc),
           ),
+          FavoritePage(bloc: widget.favoriteBloc,),
         ],
       ),
     );

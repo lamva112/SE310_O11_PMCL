@@ -57,4 +57,13 @@ class LoginBloc extends BaseBloc<LoginState> {
       return data;
     });
   }
+
+  Future<User?> signIn1(String email, String password) async {
+    final singleVocal = await _questionRepository.signInWithEmail(email, password);
+    return singleVocal.fold((failure) {
+      return Future.error(failure);
+    }, (data) {
+      return data;
+    });
+  }
 }

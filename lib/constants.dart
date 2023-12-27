@@ -8,7 +8,7 @@ class SharedPreferencesKey {
   static const String searchingAddress = 'searchingAddress';
 }
 
-String api_key = "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";
+String api_key = "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";
 
 List userData = [
   {

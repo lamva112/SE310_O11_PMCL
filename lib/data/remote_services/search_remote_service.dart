@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 
 import '../../core/core.dart';
 import '../data.dart';
+import 'package:dio/dio.dart' as dio;
 
 class SearchRemoteService implements ISearchRemoteService {
   late final INetworkUtility _networkUtility;
@@ -135,5 +136,38 @@ class SearchRemoteService implements ISearchRemoteService {
     VocabularyResponse updatedResponse = VocabularyResponse();
 
     return updatedResponse.copyWith(vocabulary: vocabularies);
+  }
+
+  @override
+  Future<bool?> addFavoriteVocabulary(String vocaId, String userId) async {
+    final response = await _networkUtility.request(
+      'http://localhost:51111/api/FavoriteVocabulary',
+      Method.POST,
+      data: {
+        "userId": userId,
+        "vocabularyId": vocaId,
+      },
+      options: dio.Options(
+        headers: {
+          'Accept': '*/*',
+          'Content-Type': 'application/json',
+        },
+        contentType: dio.Headers.jsonContentType,
+        responseType: dio.ResponseType.json,
+      ),
+    );
+
+    Map<String, dynamic> data = {};
+
+    if (response.statusCode == 200) {
+      print(response.data);
+      data = response.data;
+      return true;
+    } else {
+      print(response.statusCode);
+      print("thử lại đi nha");
+    }
+
+    return false;
   }
 }

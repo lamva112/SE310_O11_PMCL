@@ -1,12 +1,12 @@
 import 'package:intl/intl.dart';
 
-extension StringExtenstion on String? {
+extension StringExtension on String? {
   String? covertToAppDateTime({
     String fromPattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
     String toPattern = 'MM/dd/yyyy',
   }) {
-    if (this != null && this!.isNotEmpty && this != '') {
-      DateTime parseDate = DateFormat(fromPattern).parse(this ?? '');
+    if (this != null && this!.isNotEmpty) {
+      DateTime parseDate = DateFormat(fromPattern).parse(this!);
       var inputDate = DateTime.parse(parseDate.toString());
       var outputFormat = DateFormat(toPattern);
       var outputDate = outputFormat.format(inputDate);

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
@@ -139,10 +140,10 @@ class _TestDetailPageState extends BaseState<TestDetailPage, TestDetailBloc> {
                 }
                 var data = snapshot.data;
                 numOfQuestion = data?.length ?? 0;
-                // if (data?[0].options != null && isTheFistQuestion) {
-                //   bloc.getListId(data?[0].options ?? []);
-                //   isTheFistQuestion = false;
-                // }
+                if (data?[0].options != null && isTheFistQuestion) {
+                  bloc.getListId(data?[0].options ?? []);
+                  isTheFistQuestion = false;
+                }
 
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 60),
@@ -286,8 +287,9 @@ class _TestDetailPageState extends BaseState<TestDetailPage, TestDetailBloc> {
                                             height: 25,
                                           ),
                                           Expanded(
-                                            child: StreamBuilder<List<String>?>(
-                                                stream: bloc.listIdStream,
+                                            child: StreamBuilder<
+                                                    List<Options>?>(
+                                                stream: bloc.optionStream,
                                                 builder: (context, snapshot) {
                                                   var dataOption =
                                                       snapshot.data;
@@ -379,9 +381,10 @@ class _TestDetailPageState extends BaseState<TestDetailPage, TestDetailBloc> {
                                                       //   ),
                                                       // );
                                                       return OptionCard(
-                                                        title: dataOption?[
-                                                                index] ??
-                                                            "",
+                                                        title:
+                                                            dataOption?[index]
+                                                                    .value ??
+                                                                "",
                                                         onTap: () {
                                                           setState(() {
                                                             if (selectedIndex ==
@@ -394,7 +397,10 @@ class _TestDetailPageState extends BaseState<TestDetailPage, TestDetailBloc> {
                                                         isLocked:
                                                             selectedIndex ==
                                                                 index,
-                                                        questionOption: true,
+                                                        questionOption:
+                                                            dataOption?[index]
+                                                                    .isCorrect ??
+                                                                false,
                                                       );
                                                     },
                                                   );
@@ -419,10 +425,25 @@ class _TestDetailPageState extends BaseState<TestDetailPage, TestDetailBloc> {
                                             curve: Curves.easeInOut,
                                           );
                                           setState(() {
-                                            _questionNumber++;
                                             selectedIndex = -1;
                                           });
                                         }
+                                        if (_questionNumber > numOfQuestion) {
+                                          AwesomeDialog(
+                                              width: 600,
+                                              context: context,
+                                              dialogType: DialogType.info,
+                                              animType: AnimType.leftSlide,
+                                              title: 'Congratulation',
+                                              desc: 'You are finish this test',
+                                              btnCancelOnPress: () {
+                                                Navigator.pop(context);
+                                              },
+                                              btnOkOnPress: () {
+                                                Navigator.of(context).pop(true);
+                                              }).show();
+                                        }
+                                        _questionNumber++;
                                       },
                                       color: Color(0xFF4993FA),
                                       width: MediaQuery.sizeOf(context).width *

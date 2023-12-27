@@ -10,7 +10,6 @@ class SearchRepository extends ISearchRepository {
   final INetworkInfo networkInfo;
   SearchRepository({
     required this.remoteService,
-    
     required this.networkInfo,
   });
 
@@ -21,6 +20,25 @@ class SearchRepository extends ISearchRepository {
     try {
       if (isConnected) {
         final remoteData = await remoteService.getSearchResponse();
+        return Right(remoteData);
+      } else {
+        return Right(null);
+      }
+    } on ServerException {
+      return Left(ServerFailure());
+    } catch (e) {
+      return Left(UnknownFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool?>> addFavoriteVocabulary(
+      {required String userId, required String vocaId}) async {
+    final isConnected = await networkInfo.isConnected;
+    try {
+      if (isConnected) {
+        final remoteData =
+            await remoteService.addFavoriteVocabulary(vocaId, userId);
         return Right(remoteData);
       } else {
         return Right(null);

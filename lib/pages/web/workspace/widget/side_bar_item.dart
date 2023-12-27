@@ -46,6 +46,10 @@ class SideBarItem extends StatelessWidget {
         icon = Icons.psychology_alt_outlined;
         title = "Chat bot";
         break;
+      case NavigationType.favorite:
+        icon = Icons.favorite_border_outlined;
+        title = "Your favorite";
+        break;
     }
     return InkWell(
       hoverColor: AppColors.primaryWhite,

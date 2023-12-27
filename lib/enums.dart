@@ -14,4 +14,4 @@ enum FlareKeys {
   midnight,
 }
 
-enum NavigationType { home, search, template, settings }
+enum NavigationType { home, search, template, settings, favorite }

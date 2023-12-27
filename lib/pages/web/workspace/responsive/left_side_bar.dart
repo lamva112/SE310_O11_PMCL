@@ -1,10 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:se310_o11_pmcl/widgets/ink_well_wrapper.dart';
 
 import '../../../../../enums.dart';
 
 import '../../../../data/data.dart';
+import '../../../../router/router.dart';
 import '../widget/side_bar_item.dart';
 
 class LeftSideBar extends StatelessWidget {
@@ -97,7 +99,26 @@ class LeftSideBar extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 5),
+                const SizedBox(height: 12),
+                InkWellWrapper(
+                    onTap: () {
+                      Navigator.pushNamed(context, Routes.favorite);
+                    },
+                    borderRadius: BorderRadius.circular(8),
+                    paddingChild:
+                        EdgeInsets.symmetric(vertical: 12, horizontal: 40),
+                    color: Colors.black,
+                    child: Text(
+                      "Favorite colection",
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.white,
+                      ),
+                    )),
+                const SizedBox(height: 12),
+                Divider(
+                  height: 1,
+                ),
                 const SizedBox(height: 25),
                 SideBarItem(
                   type: NavigationType.home,

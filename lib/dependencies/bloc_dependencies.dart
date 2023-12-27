@@ -10,14 +10,16 @@ class BlocDependencies {
         .registerFactory<LoginBloc>(() => LoginBloc(injector(), injector()));
     injector.registerFactory<HomeBloc>(() => HomeBloc());
     injector.registerFactory<WorkspaceBloc>(() => WorkspaceBloc());
-    injector.registerFactory<SearchBloc>(() => SearchBloc(injector()));
+    injector.registerFactory<SearchBloc>(() => SearchBloc(injector(),injector()));
     injector.registerFactory<VocabularyBloc>(() => VocabularyBloc(injector()));
     injector
         .registerFactory<SearchDetailBloc>(() => SearchDetailBloc(injector()));
     injector.registerFactory<VocabularyDetailBloc>(
-        () => VocabularyDetailBloc(injector()));
+        () => VocabularyDetailBloc(injector(),injector()));
     injector.registerFactory<TestBloc>(() => TestBloc(injector()));
     injector.registerFactory<TestDetailBloc>(() => TestDetailBloc(injector()));
     injector.registerFactory<PrepareBloc>(() => PrepareBloc(injector()));
+    injector.registerFactory<FavoriteBloc>(
+        () => FavoriteBloc(injector(), injector(),injector()));
   }
 }

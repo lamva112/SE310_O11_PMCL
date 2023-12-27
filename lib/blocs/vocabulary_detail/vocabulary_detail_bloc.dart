@@ -7,7 +7,8 @@ import '../blocs.dart';
 
 class VocabularyDetailBloc extends BaseBloc<VocabularyDetailState> {
   final IVocabularyRepository _vocabularyRepository;
-  VocabularyDetailBloc(this._vocabularyRepository);
+  final ISharedPreferencesRepository sharedPreferencesRepo;
+  VocabularyDetailBloc(this._vocabularyRepository, this.sharedPreferencesRepo);
 
   Stream<bool?> get successStream =>
       stateStream.map((event) => event.success).distinct();
@@ -16,9 +17,7 @@ class VocabularyDetailBloc extends BaseBloc<VocabularyDetailState> {
   Stream<List<Vocabulary>?> get unitStream =>
       stateStream.map((event) => event.listVocal);
 
-
   Future<void> loadData(String unitId) async {
-
     var data = await getListVocalId(unitId);
     List<String> listVocal = [];
     data?.unitHasVocabulary?.forEach((element) {
@@ -28,11 +27,16 @@ class VocabularyDetailBloc extends BaseBloc<VocabularyDetailState> {
     });
 
     getListVocal(listVocal)
-        .then((value) => emit(
-              VocabularyDetailState(state: state, listVocal: value),
-            ))
-        .catchError((e) =>
-            emit(VocabularyDetailState(state: state, error: e.toString())));
+        .then((value) => {
+              print("qua day roi ne"),
+              emit(
+                VocabularyDetailState(state: state, listVocal: value),
+              )
+            })
+        .catchError((e) {
+      print("Khong6 co qua nha");
+      emit(VocabularyDetailState(state: state, error: e.toString()));
+    });
   }
 
   Future<UnitHasVocabularyResponse?> getListVocalId(String unitId) async {
@@ -52,5 +56,29 @@ class VocabularyDetailBloc extends BaseBloc<VocabularyDetailState> {
     }, (data) {
       return data;
     });
+  }
+
+  Future<void> addToFavorite(String unitId) async {
+    if (getUserId() != null) {
+      _vocabularyRepository
+          .addFavoriteUNIT(userId: getUserId() ?? "", unitId: unitId)
+          .then(
+            (value) => value.fold(
+              (e) => emit(
+                  VocabularyDetailState(state: state, error: e.toString())),
+              (data) async {
+                if (data == true) {
+                  print("Add favorite unit successfully");
+                }
+              },
+            ),
+          )
+          .catchError((e) =>
+              emit(VocabularyDetailState(state: state, error: e.toString())));
+    }
+  }
+
+  String? getUserId() {
+    return sharedPreferencesRepo.getToken();
   }
 }

@@ -39,6 +39,5 @@ class RepositoryDependencies {
         ));
     injector.registerFactory<ISharedPreferencesRepository>(
         () => SharedPreferencesRepository(injector()));
-
   }
 }

@@ -8,5 +8,6 @@ class LocalServiceDependencies {
     injector.registerFactory<ISharedPreferencesService>(
         () => SharedPreferencesService(sharedPreferences: injector()));
 
+
   }
 }

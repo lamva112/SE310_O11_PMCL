@@ -22,11 +22,13 @@ class OptionRemoteService extends IOptionRemoteService {
           Map<String, dynamic> data =
               json.decode(response.data) as Map<String, dynamic>;
           list.add(Options.fromJson(data));
+          print('option Ok');
         } else {
           print("question status code ${response.statusCode}");
+          print('option status code ${response.statusCode}');
         }
       } catch (e) {
-        print('Error: $e');
+        print('Error option: $e');
       }
     }
 

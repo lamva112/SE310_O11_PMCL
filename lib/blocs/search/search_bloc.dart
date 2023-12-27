@@ -4,7 +4,8 @@ import '../blocs.dart';
 
 class SearchBloc extends BaseBloc<SearchState> {
   final ISearchRepository _searchRepository;
-  SearchBloc(this._searchRepository);
+  final ISharedPreferencesRepository sharedPreferencesRepo;
+  SearchBloc(this._searchRepository, this.sharedPreferencesRepo);
 
   Stream<bool?> get successStream =>
       stateStream.map((event) => event.success).distinct();
@@ -34,5 +35,31 @@ class SearchBloc extends BaseBloc<SearchState> {
     List<Vocabulary>? matchingVocabulary =
         state?.vocaList?.where((v) => v.word!.contains(text)).toList();
     emit(SearchState(state: state, searchList: matchingVocabulary));
+  }
+
+  Future<void> addToFavorite(String vocaId) async {
+    String token = await sharedPreferencesRepo.getToken() ?? "";
+
+    print("token ne ${token}");
+    // if (getUserId() != null) {
+    //   _searchRepository
+    //       .addFavoriteVocabulary(userId:getUserId()!, vocaId: vocaId)
+    //       .then(
+    //         (value) => value.fold(
+    //           (e) => emit(SearchState(state: state, error: e.toString())),
+    //           (data) async {
+    //             if (data == true) {
+    //               print("Add favoreite thang cong");
+    //             }
+    //           },
+    //         ),
+    //       )
+    //       .catchError(
+    //           (e) => emit(SearchState(state: state, error: e.toString())));
+    // }
+  }
+
+  String? getUserId() {
+    return sharedPreferencesRepo.getToken();
   }
 }

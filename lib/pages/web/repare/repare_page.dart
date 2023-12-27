@@ -131,6 +131,18 @@ class _PreparePageState extends BaseState<PreparePage, PrepareBloc>
                     ),
                   ),
                 ),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 24),
+                    child: Text(
+                      "Choose your lucky color",
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
                 Center(
                   child: Stack(
                     alignment: Alignment.center,
@@ -264,14 +276,18 @@ class _PreparePageState extends BaseState<PreparePage, PrepareBloc>
                                 desc:
                                     'Each question can only be answered once !',
                                 btnCancelOnPress: () {},
-                                btnOkOnPress: () {
+                                btnOkOnPress: () async {
                                   if (bloc.state?.listQuestion != null) {
-                                    Navigator.pushNamed(
+                                    var data = await Navigator.pushNamed(
                                         context, Routes.testDetail,
                                         arguments: {
                                           "color": selectedColor,
-                                          "question": dummyData,
+                                          "question": bloc.state?.listQuestion,
                                         });
+
+                                    if (data == true) {
+                                      Navigator.pop(context);
+                                    }
                                   }
                                 }).show();
                           },

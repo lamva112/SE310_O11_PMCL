@@ -4,6 +4,7 @@ import '../blocs.dart';
 
 class TestDetailBloc extends BaseBloc<TestDetailState> {
   final IOptionRepository _optionRepository;
+  
   TestDetailBloc(this._optionRepository);
 
   Stream<bool?> get successStream =>
@@ -24,18 +25,18 @@ class TestDetailBloc extends BaseBloc<TestDetailState> {
   }
 
   void getListId(List<String> idList) {
-    // _optionRepository
-    //     .getSingleOption(idList)
-    //     .then(
-    //       (value) => value.fold(
-    //         (e) => emit(TestDetailState(state: state, error: e.toString())),
-    //         (data) async {
-    //           emit(TestDetailState(state: state, optionList: data));
-    //         },
-    //       ),
-    //     )
-    //     .catchError(
-    //         (e) => emit(TestDetailState(state: state, error: e.toString())));
-    emit(TestDetailState(state: state, idList: idList));
+    _optionRepository
+        .getSingleOption(idList)
+        .then(
+          (value) => value.fold(
+            (e) => emit(TestDetailState(state: state, error: e.toString())),
+            (data) async {
+              emit(TestDetailState(state: state, optionList: data));
+            },
+          ),
+        )
+        .catchError(
+            (e) => emit(TestDetailState(state: state, error: e.toString())));
+    //emit(TestDetailState(state: state, idList: idList));
   }
 }

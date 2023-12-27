@@ -10,3 +10,4 @@ export 'vocabulary_detail/vocabulary_detail.dart';
 export 'test/test.dart';
 export 'test_detail/test_detail.dart';
 export 'prepare/prepare.dart';
+export 'favorite/favorite.dart';

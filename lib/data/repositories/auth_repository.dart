@@ -23,6 +23,7 @@ class AuthRepository extends IAuthRepository {
     } on ServerException {
       return Left(ServerFailure());
     } catch (e) {
+      print("Lỗi nè ${e}");
       return Left(UnknownFailure());
     }
   }

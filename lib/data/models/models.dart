@@ -6,3 +6,5 @@ export 'test_model.dart';
 export 'question_model.dart';
 export 'option_model.dart';
 export 'user_model.dart';
+export 'favorite_vocabulary_model.dart';
+export 'favorite_unit_model.dart';
