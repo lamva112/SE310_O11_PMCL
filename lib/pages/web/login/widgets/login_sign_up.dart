@@ -115,6 +115,11 @@ class _LoginSignUpState extends State<LoginSignUp> {
                   ),
                   child: InkWellWrapper(
                     onTap: () {
+                      _dateTimeController.clear();
+                      _userController.clear();
+                      _passwordController.clear();
+                      _emailController.clear();
+
                       if (_signinKey.currentState?.validate() == true) {
                         if (_dateTimeController.text != "" &&
                             _emailController.text != null &&
