@@ -47,50 +47,46 @@ class _TestPageState extends BaseState<TestPage, TestBloc> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        //Navigator.pushNamed(context, Routes.prepare,arguments: test.questions);
-      },
-      child: Scaffold(
-        backgroundColor: Colors.black,
-        body: SafeArea(
-            child: Row(
-          children: [
-            Expanded(
-              flex: 4,
-              child: StreamBuilder<List<Test>?>(
-                  stream: bloc.testStream,
-                  builder: (context, snapshot) {
-                    var data = snapshot.data;
-                    return ListView.separated(
-                      padding: const EdgeInsets.only(left: 24, right: 40),
-                      itemBuilder: (context, index) {
-                        Color activeColor =
-                            activeColors[index % activeColors.length];
-                        Color inActiveColor =
-                            inActiveColors[index % inActiveColors.length];
-                        return AnimatedCard(
-                          test: data?[index],
-                          onTap: () {
-                            Navigator.pushNamed(context, Routes.prepare,arguments: data?[index].questions);
-                          },
-                          activeColor: activeColor,
-                          inactiveColor: inActiveColor,
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return SizedBox(
-                          height: 24,
-                        );
-                      },
-                      itemCount: data?.length ?? 0,
-                    );
-                  }),
-            ),
-            Expanded(flex: 1, child: SizedBox()),
-          ],
-        )),
-      ),
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: SafeArea(
+          child: Row(
+        children: [
+          Expanded(
+            flex: 4,
+            child: StreamBuilder<List<Test>?>(
+                stream: bloc.testStream,
+                builder: (context, snapshot) {
+                  var data = snapshot.data;
+                  return ListView.separated(
+                    padding: const EdgeInsets.only(left: 24, right: 40),
+                    itemBuilder: (context, index) {
+                      Color activeColor =
+                          activeColors[index % activeColors.length];
+                      Color inActiveColor =
+                          inActiveColors[index % inActiveColors.length];
+                      return AnimatedCard(
+                        test: data?[index],
+                        onTap: () {
+                          Navigator.pushNamed(context, Routes.prepare,
+                              arguments: data?[index].questions);
+                        },
+                        activeColor: activeColor,
+                        inactiveColor: inActiveColor,
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return SizedBox(
+                        height: 24,
+                      );
+                    },
+                    itemCount: data?.length ?? 0,
+                  );
+                }),
+          ),
+          Expanded(flex: 1, child: SizedBox()),
+        ],
+      )),
     );
   }
 

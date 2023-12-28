@@ -3,7 +3,8 @@ import 'package:just_audio/just_audio.dart';
 
 class AudioPlayerButton extends StatefulWidget {
   final String url;
-  const AudioPlayerButton({super.key, required this.url});
+  final Color? color;
+  const AudioPlayerButton({super.key, required this.url, this.color});
 
   @override
   State<AudioPlayerButton> createState() => _AudioPlayerButtonState();
@@ -37,7 +38,10 @@ class _AudioPlayerButtonState extends State<AudioPlayerButton> {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: const Icon(Icons.headphones),
+      icon: Icon(
+        Icons.headphones,
+        color: widget.color ?? Colors.black,
+      ),
       onPressed: () async {
         await player.setUrl(widget.url);
         await player.play();

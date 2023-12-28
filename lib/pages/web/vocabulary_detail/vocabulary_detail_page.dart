@@ -23,17 +23,17 @@ class _VocabularyDetailState
   var isShowBackButton = BehaviorSubject.seeded(false);
   final AppinioSwiperController controller = AppinioSwiperController();
   var unitId = '';
-  // var data = Vocabulary(
-  //     id: "64147d927edf0126d1f6ef93",
-  //     type: "noun",
-  //     word: "sunset",
-  //     hint: "We sat on the beach watching a spectacular sunset",
-  //     phonetics: "ˈsʌn.set",
-  //     pronouce:
-  //         "https://firebasestorage.googleapis.com/v0/b/dictionaryasp.appspot.com/o/vocabulary%2Fsunset.mp3?alt=media&token=9dfbf6f0-ec7f-494f-ac46-6dc95573e2de",
-  //     image:
-  //         "https://firebasestorage.googleapis.com/v0/b/dictionaryasp.appspot.com/o/vocabulary%2Fsunset.png?alt=media&token=773dd843-c4e4-4164-b272-3da6b8b562c4",
-  //     meaning: "the time in the evening when you last see the sun in the sky");
+  var data = Vocabulary(
+      id: "64147d927edf0126d1f6ef93",
+      type: "noun",
+      word: "sunset",
+      hint: "We sat on the beach watching a spectacular sunset",
+      phonetics: "ˈsʌn.set",
+      pronouce:
+          "https://firebasestorage.googleapis.com/v0/b/dictionaryasp.appspot.com/o/vocabulary%2Fsunset.mp3?alt=media&token=9dfbf6f0-ec7f-494f-ac46-6dc95573e2de",
+      image:
+          "https://firebasestorage.googleapis.com/v0/b/dictionaryasp.appspot.com/o/vocabulary%2Fsunset.png?alt=media&token=773dd843-c4e4-4164-b272-3da6b8b562c4",
+      meaning: "the time in the evening when you last see the sun in the sky");
 
   @override
   Future<void> onReceivePayload(Object? payload) async {
@@ -114,81 +114,85 @@ class _VocabularyDetailState
                 flex: 4,
                 child: Column(
                   children: [
-                    StreamBuilder<bool>(
-                        stream: isShowBackButton,
-                        builder: (context, snapshot) {
-                          return Visibility(
-                            visible: snapshot.data ?? false,
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  width: 250,
-                                  height: 250,
-                                  child: LottieBuilder.asset(
-                                    "assets/images/json/space.json",
-                                    fit: BoxFit.cover,
-                                    width: 550,
-                                    height: 550,
-                                  ),
+                    Stack(
+                      children: [
+                        StreamBuilder<bool>(
+                            stream: isShowBackButton,
+                            builder: (context, snapshot) {
+                              return Visibility(
+                                visible: snapshot.data ?? false,
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      width: 250,
+                                      height: 250,
+                                      child: LottieBuilder.asset(
+                                        "assets/images/json/space.json",
+                                        fit: BoxFit.cover,
+                                        width: 550,
+                                        height: 550,
+                                      ),
+                                    ),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 16),
+                                      child: Text(
+                                        "You have finished this section. ",
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w700,
+                                          color: AppColors.primaryWhite,
+                                        ),
+                                      ),
+                                    ),
+                                    InkWellWrapper(
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                      borderRadius: BorderRadius.circular(24),
+                                      border: Border.all(
+                                          color: AppColors.primaryWhite),
+                                      color: Colors.transparent,
+                                      paddingChild: const EdgeInsets.symmetric(
+                                        vertical: 16,
+                                        horizontal: 24,
+                                      ),
+                                      child: Text(
+                                        localization.back,
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                          color: AppColors.primaryWhite,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                const Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 16),
-                                  child: Text(
-                                    "You have finished this section. ",
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w700,
-                                      color: AppColors.primaryWhite,
+                              );
+                            }),
+                        StreamBuilder<List<Vocabulary>?>(
+                            stream: bloc.unitStream,
+                            builder: (context, snapshot) {
+                              var data = snapshot.data ?? [];
+                              return SizedBox(
+                                width: 350,
+                                height: 450,
+                                child: UnitSwipeableStack(
+                                  items: List.generate(
+                                    data.length ?? 0,
+                                    (index) => UnitFlipCard(
+                                      vocabulary: data[index],
                                     ),
                                   ),
-                                ),
-                                InkWellWrapper(
                                   onTap: () {
-                                    Navigator.pop(context);
+                                    isShowBackButton.add(true);
                                   },
-                                  borderRadius: BorderRadius.circular(24),
-                                  border:
-                                      Border.all(color: AppColors.primaryWhite),
-                                  color: Colors.transparent,
-                                  paddingChild: const EdgeInsets.symmetric(
-                                    vertical: 16,
-                                    horizontal: 24,
-                                  ),
-                                  child: Text(
-                                    localization.back,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColors.primaryWhite,
-                                    ),
-                                  ),
+                                  controller: controller,
                                 ),
-                              ],
-                            ),
-                          );
-                        }),
-                    StreamBuilder<List<Vocabulary>?>(
-                        stream: bloc.unitStream,
-                        builder: (context, snapshot) {
-                          var data = snapshot.data ?? [];
-                          return SizedBox(
-                            width: 350,
-                            height: 450,
-                            child: UnitSwipeableStack(
-                              items: List.generate(
-                                data.length ?? 0,
-                                (index) => UnitFlipCard(
-                                  vocabulary: data[index],
-                                ),
-                              ),
-                              onTap: () {
-                                isShowBackButton.add(true);
-                              },
-                              controller: controller,
-                            ),
-                          );
-                          
-                        }),
+                              );
+                            }),
+                      ],
+                    ),
                   ],
                 ),
               ),

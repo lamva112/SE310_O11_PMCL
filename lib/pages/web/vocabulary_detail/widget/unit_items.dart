@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../data/data.dart';
 import '../../../../resources/colors.dart';
+import '../../search/widget/audiod.dart';
 
 class UnitFlipCard extends StatelessWidget {
   final Vocabulary? vocabulary;
@@ -17,119 +18,199 @@ class UnitFlipCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlipCard(
-      back: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        decoration: BoxDecoration(
-          color: Colors.blue,
-          border: Border.all(
-            color: AppColors.primaryWhite,
-            width: 2,
-          ),
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              vocabulary?.word??"",
-              style: const TextStyle(
-                fontSize: 40,
-                color: AppColors.primaryBlack,
-                fontWeight: FontWeight.w900,
-              ),
-            ),
-            Text(
-              vocabulary?.type??"",
-              style: const TextStyle(
-                fontSize: 15,
-                color: AppColors.primaryBlack,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            Text(vocabulary?.phonetics??"",
-                style: const TextStyle(
-                  fontSize: 20,
-                  color: AppColors.primaryGradientDark,
-                  fontWeight: FontWeight.w500,
-                )),
-            const SizedBox(height: 30),
-            RichText(
-              text: TextSpan(
-                children: [
-                  const TextSpan(
-                    text: 'Hint: ',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: AppColors.primaryBlack,
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ),
-                  TextSpan(
-                    text: vocabulary?.hint??"",
-                    style: const TextStyle(
-                      fontSize: 13,
-                      color: AppColors.primaryBlack,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-      front: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        decoration: BoxDecoration(
-          color: AppColors.primaryLight,
-          border: Border.all(
-            color: AppColors.primaryBlack,
-            width: 2,
-          ),
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Image.network(
-                  vocabulary?.image??"",
-                  scale: 3,
-                ),
-                // PronounceWidget(
-                //   url: vocabulary.pronounce!,
-                // ),
+      back: Stack(
+        fit: StackFit.loose,
+        clipBehavior: Clip.hardEdge,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Color(0xFF4993FA),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.24),
+                  blurRadius: 20.0,
+                  offset: const Offset(0.0, 10.0),
+                  spreadRadius: 10,
+                  blurStyle: BlurStyle.outer,
+                )
               ],
             ),
-            const SizedBox(height: 30),
-            RichText(
-              text: TextSpan(
-                children: [
-                  const TextSpan(
-                    text: 'Meaning: ',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: AppColors.primaryLight,
-                      fontWeight: FontWeight.w900,
-                    ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  vocabulary?.word ?? "",
+                  style: const TextStyle(
+                    fontSize: 40,
+                    color: AppColors.primaryWhite,
+                    fontWeight: FontWeight.w900,
                   ),
-                  TextSpan(
-                    text: vocabulary?.meaning??"",
-                    style: const TextStyle(
-                      fontSize: 10,
-                      color: AppColors.primaryBlack,
-                      fontWeight: FontWeight.w400,
+                ),
+                Text(
+                  vocabulary?.type ?? "",
+                  style: const TextStyle(
+                    fontSize: 15,
+                    color: AppColors.primaryWhite,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                Text(vocabulary?.phonetics ?? "",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white.withOpacity(0.5),
+                      fontWeight: FontWeight.w500,
+                    )),
+                const SizedBox(height: 30),
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      const TextSpan(
+                        text: 'Meaning: ',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                      TextSpan(
+                        text: vocabulary?.meaning ?? "",
+                        style: const TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          AudioPlayerButton(
+            url: vocabulary?.pronouce ?? "",
+          ),
+          Positioned(
+            left: -120,
+            top: 50,
+            child: Container(
+              height: 200,
+              width: 200,
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.5),
+                shape: BoxShape.circle,
+              ),
+              child: Center(
+                child: Container(
+                  height: 100,
+                  width: 100,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF4993FA),
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+      front: Stack(
+        fit: StackFit.loose,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Color(0xFF4993FA),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Image.network(
+                        vocabulary?.image ?? "",
+                        scale: 3,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 30),
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        const TextSpan(
+                          //text: 'Meaning: ',
+                          text: 'Hint: ',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        TextSpan(
+                          text: vocabulary?.hint ?? "",
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+          Positioned(
+            left: -120,
+            top: 30,
+            child: Container(
+              height: 200,
+              width: 200,
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.5),
+                shape: BoxShape.circle,
+              ),
+              child: Center(
+                child: Container(
+                  height: 100,
+                  width: 100,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF4993FA).withOpacity(0.5),
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            right: -100,
+            bottom: 20,
+            child: Container(
+              height: 200,
+              width: 200,
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.5),
+                shape: BoxShape.circle,
+              ),
+              child: Center(
+                child: Container(
+                  height: 100,
+                  width: 100,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF4993FA),
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -144,7 +225,7 @@ class UnitSwipeableStack extends StatelessWidget {
     super.key,
     required this.items,
     required this.controller,
-     this.onTap,
+    this.onTap,
   });
 
   @override

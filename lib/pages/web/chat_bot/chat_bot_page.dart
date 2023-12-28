@@ -17,13 +17,14 @@ class _ChatBotPageState extends State<ChatBotPage> {
   final ChatUser _gptUser =
       ChatUser(id: '2', firstName: "Panda", lastName: 'Lecture');
   ChatGptApiClient client = ChatGptApiClient(
-      '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',
+      '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',
       ChatGptModelOption(stream: false, maxPropmtStack: 3));
   List<ChatMessage> messages = <ChatMessage>[];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: DashChat(
         currentUser: _currentUser,
         onSend: (ChatMessage m) {
